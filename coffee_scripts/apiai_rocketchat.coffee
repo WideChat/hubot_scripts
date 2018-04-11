@@ -62,26 +62,23 @@ module.exports = (robot) ->
         # API.AI has determined the intent
 
         # Text
-        if response.result.fulfillment.speech
+        if (response.result.fulfillment.speech)
             msg.send(response.result.fulfillment.speech)
 
-        # Custom types and platforms
+        # Rich messages and attachments
         for message in response.result.fulfillment.messages
-            # Rocketchat custom_type attachments
-            if message.payload && message.payload.custom_type
-                if message.payload.custom_type == "rocketchat" && message.payload.attachments
-                    robot.adapter.customMessage({
-                        channel: msg.message.user["roomID"],
-                        attachments: message.payload.attachments
-                    })
-            # Facebook message platform
-            else if message.platform && message.platform == "facebook"
-                if message.payload
-                    robot.adapter.customMessage({
-                        channel: msg.message.user["roomID"],
-                        custom_attachment: message.payload
-                    })
-
+            # Rocketchat attachments
+            if (message.payload? && message.payload.attachments?)
+                robot.adapter.customMessage({
+                    channel: msg.message.user["roomID"],
+                    attachments: message.payload.attachments
+                })
+            # Rich messages
+            if (message.payload? && message.payload.richMessage?)
+                robot.adapter.customMessage({
+                    channel: msg.message.user["roomID"],
+                    richMessage: message.payload.richMessage
+                })
         
         robot.logger.info("Emitting robot action: " +
                     response.result.metadata.intentName + ", " +
