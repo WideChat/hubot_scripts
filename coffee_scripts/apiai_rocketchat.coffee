@@ -60,19 +60,25 @@ module.exports = (robot) ->
                response.result.action isnt "input.unknown")
 
         # API.AI has determined the intent
-        msg.send(response.result.fulfillment.speech)
 
-        # EAR> prototype code here to verify we can send an attachment to the client though apiai and the hubot adapter
-        # We used "Custom Payload", from dialogflow's intent response, to include the attachment. 
+        # Text
+        if (response.result.fulfillment.speech)
+            msg.send(response.result.fulfillment.speech)
 
-        try
-            # Hard coded location for the attachment.  Need to fix this to more generally parse the json response
-            attachments = response.result.fulfillment.messages[1].payload.attachments
-            robot.adapter.customMessage({
-                channel: msg.message.user["roomID"],
-                attachments: attachments
-            })
-        catch e
+        # Rich messages and attachments
+        for message in response.result.fulfillment.messages
+            # Rocketchat attachments
+            if (message.payload? && message.payload.attachments?)
+                robot.adapter.customMessage({
+                    channel: msg.message.user["roomID"],
+                    attachments: message.payload.attachments
+                })
+            # Rich messages
+            if (message.payload? && message.payload.richMessage?)
+                robot.adapter.customMessage({
+                    channel: msg.message.user["roomID"],
+                    richMessage: message.payload.richMessage
+                })
         
         robot.logger.info("Emitting robot action: " +
                     response.result.metadata.intentName + ", " +
