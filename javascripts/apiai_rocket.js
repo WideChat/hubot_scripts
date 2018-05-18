@@ -1,3 +1,16 @@
+/*
+export ROCKETCHAT_URL=export ROCKETCHAT_URL=https://ear-hotchat2.herokuapp.com:443
+export ROCKETCHAT_ROOM=''
+export LISTEN_ON_ALL_PUBLIC=false
+export RESPOND_TO_DM=true
+export ROCKETCHAT_PASSWORD=vera
+export ROCKETCHAT_AUTH=password
+export API_AI_CLIENT_ACCESS_TOKEN=158f65db537f45c8aa94e3a92f913438
+export ROCKETCHAT_USESSL=true
+export ROCKETCHAT_USER=vera
+*/
+
+
 var apiai = require('apiai');
 var app = apiai(process.env.API_AI_CLIENT_ACCESS_TOKEN);
 

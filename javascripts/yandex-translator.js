@@ -1,3 +1,15 @@
+/*
+export ROCKETCHAT_URL=export ROCKETCHAT_URL=https://ear-hotchat2.herokuapp.com:443
+export ROCKETCHAT_ROOM=''
+export LISTEN_ON_ALL_PUBLIC=true
+export RESPOND_TO_DM=true
+export ROCKETCHAT_PASSWORD=translator
+export ROCKETCHAT_AUTH=password
+export ROCKETCHAT_USESSL=true
+export ROCKETCHAT_USER=translator
+export YANDEX_TRANSLATE_API_KEY=trnsl.1.1.20180516T174613Z.66b4fcd2bcaf40b3.2b0cea996df5d603a1c869878d57be498bbe51eb
+*/
+
 'use strict';
 
 function yandexTranslate (robot) {
