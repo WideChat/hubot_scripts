@@ -33,7 +33,7 @@ module.exports = (robot) => {
             }
 
             var messages = response.result.fulfillment.messages;
-            // Attachments and richMessages
+            // rich messages
             for (var i = 0; i < messages.length; i++) {
                 if (messages[i].payload && messages[i].payload.attachments) {
                     robot.adapter.customMessage({
@@ -42,10 +42,10 @@ module.exports = (robot) => {
                     })
                 }
                 // Rich messages
-                if (messages[i].payload && messages[i].payload.richMessage) {
+                if (messages[i].payload && messages[i].payload.type) {
                     robot.adapter.customMessage({
                         rid: msg.message.user["roomID"],
-                        richMessage: messages[i].payload.richMessage
+                        payload: messages[i].payload
                     })
                 }
             }
